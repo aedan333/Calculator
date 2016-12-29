@@ -1,0 +1,16 @@
+body{
+	background-color: #00ffff;
+}
+
+.readout{
+	background-color: #00ffff;
+	color: black;
+	border: 1px solid black;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.storage{
+	float: right;
+	color: rgba(0,0,0,0.7);
+}
