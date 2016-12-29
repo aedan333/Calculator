@@ -95,6 +95,12 @@ $('.js-num9').click(function(){
 		$('.js-storage').text(storage);
 
 		$('.js-readout').text(output);
+
+		$('.js-readout').addClass('s-success');
+
+		setTimeout( function(){
+			$('.js-readout').removeClass('s-success');
+		},1000);
 	
 	});
 
