@@ -8,9 +8,43 @@ body{
 	border: 1px solid black;
 	padding: 20px;
 	margin-bottom: 20px;
+
+	font-size: 30px;
+	font-weight: bold;
+
+	transition: 0.2s ease-out;
+}
+
+.readout.s-success{
+	color: orange;
 }
 
 .storage{
 	float: right;
 	color: rgba(0,0,0,0.7);
+}
+
+button{
+	font-size: 30px;
+	padding: 5px 10px;
+	background-color: #0070ff;
+	color: black; 
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+.button--number{
+
+}
+
+.button--calculate{
+	background-color: green;
+}
+
+.button--clear{
+	background-color: red;
+}
+
+.space-bottom{
+	margin-bottom:10px;
 }
