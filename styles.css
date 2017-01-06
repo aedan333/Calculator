@@ -4,11 +4,11 @@ body{
 
 	@font-face {
 	    font-family: 'calculatorregular';
-	    src: url('resources/calculator-webfont.eot');
-	    src: url('resources/calculator-webfont.eot?#iefix') format('embedded-opentype'),
-	         url('resources/calculator-webfont.woff2') format('woff2'),
-	         url('resources/calculator-webfont.woff') format('woff'),
-	         url('resources/calculator-webfont.svg#calculatorregular') format('svg'); 
+	    src: url('resources/calculator.eot');
+	    src: url('resources/calculator.eot?#iefix') format('embedded-opentype'),
+	         url('resources/calculator.woff2') format('woff2'),
+	         url('resources/calculator.woff') format('woff'),
+	         url('resources/calculator.svg#calculatorregular') format('svg'); 
 	    font-weight: normal;
 	    font-style: normal;
 	}
