@@ -76,11 +76,24 @@ $('.js-num9').click(function(){
 	});
 
 
-
 	$('.js-divide').click(function(){
 		updateStorage('divide');
 		$('.js-readout').text('');
 	});
+
+
+//EXPONENT BUTTON CODE IS HERE!
+	$('.js-exponent').click(function(){
+		updateStorage('exponent');
+		$('.js-readout').text('');
+	});
+
+//NEGATIVE BUTTON IS HERE	
+	$('.js-negative').click(function(){
+		negative = !negative; //if negative is true, make it false and vice versa.
+		$('.js--negative-marker').toggleClass('s-visible');
+	});
+
 
 
 	$('.js-calculate').click(function(){
@@ -89,6 +102,10 @@ $('.js-num9').click(function(){
 		else if(action == "subtract") output = storage - parseInt(num);
 		else if(action == "multiply") output = storage * parseInt(num);
 		else if(action == "divide") output = storage / parseInt(num);
+
+		//AND THIS IS THE CODE THAT CONTROLS DOING THE EXPONENT MATH
+		else if(action == "exponent") output = Math.pow(storage, parseInt(num));
+
 
 		storage = num = parseInt(output);
 
@@ -119,9 +136,18 @@ $('.js-num9').click(function(){
 var num = 0;
 var action = '';
 var storage = 0;
+var negative = false;
 
 function updateStorage(tempaction){
 	storage = parseInt(num);
+	
+	//THIS IS THE CODE FOR THE NEGATIVE CONTROL - IF WE PRESSED THE NEGATIVE BUTTON WE SHOULD MULTIPLY BY -1 AND RESET NEGATIVE TO FALSE
+	if(negative){
+		storage = storage * -1; //multiply the number by -1;
+		negative = false;	//restore negative to false
+		$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
+	} 
+	
 	action = tempaction;
 	$('.js-storage').text(storage + tempaction);
 	num = 0;

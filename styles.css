@@ -19,6 +19,14 @@ body{
 	color: orange;
 }
 
+.negative-marker{
+	visibility: hidden;
+}
+	
+	.negative-marker.s-visible{
+		visibility: visible;
+	}
+
 .storage{
 	float: right;
 	color: rgba(0,0,0,0.7);
