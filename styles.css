@@ -38,6 +38,10 @@ body{
 		visibility: visible;
 	}
 
+.operation{
+	float: right;
+}
+
 .storage{
 	float: right;
 	color: rgba(0,0,0,0.7);

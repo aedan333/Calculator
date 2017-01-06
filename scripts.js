@@ -47,28 +47,28 @@ $(function(){
 
 	//THIS IS THE CODE FOR OPERATIONS BUTTONS (PLUS, MINUS, ...)
 		$('.js-multiply').click(function(){
-			updateStorage('multiply');
+			updateStorage('*');
 			$('.js-readout').text('0');
 		});
 
 		$('.js-add').click(function(){
-			updateStorage('add');
+			updateStorage('+');
 			$('.js-readout').text('0');
 		});
 
 		$('.js-subtract').click(function(){
-			updateStorage('subtract');
+			updateStorage('-');
 			$('.js-readout').text('0');
 		});
 
 		$('.js-divide').click(function(){
-			updateStorage('divide');
+			updateStorage('/');
 			$('.js-readout').text('0');
 		});
 
 		//EXPONENT BUTTON CODE IS HERE!
 		$('.js-exponent').click(function(){
-			updateStorage('exponent');
+			updateStorage('^');
 			$('.js-readout').text('0');
 		});
 
@@ -88,18 +88,20 @@ $(function(){
 			if(negative) tempNumber = makeNegative(tempNumber);
 			$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
 
-			if(action == "add") output = storage + tempNumber;
-			else if(action == "subtract") output = storage - tempNumber;
-			else if(action == "multiply") output = storage * tempNumber;
-			else if(action == "divide") output = storage / tempNumber;
+			if(action == "+") output = storage + tempNumber;
+			else if(action == "-") output = storage - tempNumber;
+			else if(action == "*") output = storage * tempNumber;
+			else if(action == "/") output = storage / tempNumber;
 
 			//AND THIS IS THE CODE THAT CONTROLS DOING THE EXPONENT MATH
-			else if(action == "exponent") output = Math.pow(storage, tempNumber);
+			else if(action == "^") output = Math.pow(storage, tempNumber);
 
 
 			storage = num = parseInt(output);
 
 			$('.js-storage').text(storage);
+
+			$('.js-operation').text("");
 
 			$('.js-readout').text(output);
 
@@ -118,6 +120,7 @@ $(function(){
 		negative = false;	//restore negative to false
 		$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
 		$('.js-storage').text("");
+		$('.js-operation').text("");
 		$('.js-readout').text("0");
 	})
 
@@ -150,6 +153,7 @@ function updateStorage(tempaction){
 	} 
 	
 	action = tempaction;
+	$('.js-operation').text(tempaction);
 	$('.js-storage').text(storage + tempaction);
 	num = 0;
 }
