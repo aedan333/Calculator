@@ -2,14 +2,25 @@ body{
 	background-color: #00ffff;
 }
 
+	@font-face {
+	    font-family: 'calculatorregular';
+	    src: url('resources/calculator-webfont.woff2') format('woff2'),
+	         url('resources/calculator-webfont.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+
+
+
 .readout{
+	font-family: calculatorregular;
 	background-color: #00ffff;
 	color: black;
 	border: 1px solid black;
-	padding: 20px;
+	padding: 10px;
 	margin-bottom: 20px;
 
-	font-size: 30px;
+	font-size: 40px;
 	font-weight: bold;
 
 	transition: 0.2s ease-out;
@@ -34,6 +45,7 @@ body{
 
 button{
 	font-size: 30px;
+	min-width: 50px;
 	padding: 5px 10px;
 	background-color: #0070ff;
 	color: black; 
