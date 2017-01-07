@@ -81,37 +81,10 @@ $(function(){
 
 	//THIS IS THE CODE TO DO THE CALCULATIONS
 		$('.js-calculate').click(function(){
-			var output;
-			var tempNumber = parseInt(num);
-
-			//IF THIS IS A NEGATIVE NUMBER HANDLE THAT
-			if(negative) tempNumber = makeNegative(tempNumber);
-			$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
-
-			if(action == "+") output = storage + tempNumber;
-			else if(action == "-") output = storage - tempNumber;
-			else if(action == "*") output = storage * tempNumber;
-			else if(action == "/") output = storage / tempNumber;
-
-			//AND THIS IS THE CODE THAT CONTROLS DOING THE EXPONENT MATH
-			else if(action == "^") output = Math.pow(storage, tempNumber);
-
-
-			storage = num = parseInt(output);
-
-			$('.js-storage').text(storage);
-
-			$('.js-operation').text("");
-
-			$('.js-readout').text(output);
-
-			$('.js-readout').addClass('s-success');
-
-			setTimeout( function(){
-				$('.js-readout').removeClass('s-success');
-			},1000);
-		
+			calculate();
 		});
+
+		
 
 	//THIS IS THE CLEAR BUTTON
 	$(".js-clear").click(function(){
@@ -164,3 +137,74 @@ function makeNegative(number){
 	
 	return number * -1;
 }
+
+function calculate(){
+	var output;
+	var tempNumber = parseInt(num);
+
+	//IF THIS IS A NEGATIVE NUMBER HANDLE THAT
+	if(negative) tempNumber = makeNegative(tempNumber);
+	$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
+
+	if(action == "+") output = storage + tempNumber;
+	else if(action == "-") output = storage - tempNumber;
+	else if(action == "*") output = storage * tempNumber;
+	else if(action == "/") output = storage / tempNumber;
+
+	//AND THIS IS THE CODE THAT CONTROLS DOING THE EXPONENT MATH
+	else if(action == "^") output = Math.pow(storage, tempNumber);
+
+
+	storage = num = parseInt(output);
+
+	$('.js-storage').text(storage);
+
+	$('.js-operation').text("");
+
+	$('.js-readout').text(output);
+
+	$('.js-readout').addClass('s-success');
+
+	setTimeout( function(){
+		$('.js-readout').removeClass('s-success');
+	},1000);
+
+};
+
+
+//SNEAKY - YOU CAN USE YOUR KEYBOARD IF YOU WANT TO :)
+
+window.addEventListener('keypress', function(event){
+
+	if(event.keyCode > 47 && event.keyCode < 58){		
+		updateNumber(String.fromCharCode(event.charCode));
+		return;
+	}
+
+	switch(event.keyCode){
+		case 43:
+			updateStorage('+');
+			$('.js-readout').text('0');
+			break;
+		case 45:
+			updateStorage('-');
+			$('.js-readout').text('0');
+			break;
+		case 42:
+			updateStorage('*');
+			$('.js-readout').text('0');
+			break;
+		case 47:
+			updateStorage('/');
+			$('.js-readout').text('0');
+			break;
+		case 61:
+		case 13:
+			calculate();
+			break;
+	}
+
+
+});
+
+
