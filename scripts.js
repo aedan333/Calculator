@@ -78,6 +78,14 @@ $(function(){
 			$('.js--negative-marker').toggleClass('s-visible');
 		});
 
+		//DECIMAL BUTTON IS HERE	
+		$('.js-decimal').click(function(){
+			if(decimal) return false;
+			num += '.'
+			$('.js-readout').text(num);
+			decimal = true;
+		});
+
 
 	//THIS IS THE CODE TO DO THE CALCULATIONS
 		$('.js-calculate').click(function(){
@@ -91,6 +99,7 @@ $(function(){
 		num = 0; 
 		storage = 0;
 		negative = false;	//restore negative to false
+		decimal = false;
 		$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
 		$('.js-storage').text("");
 		$('.js-operation').text("");
@@ -104,26 +113,32 @@ var num = 0;
 var action = '';
 var storage = 0;
 var negative = false;
+var decimal = false;
 
 
 //THIS IS THE FUNCTION THAT RUNS WHEN YOU CLICK A NUMBER BUTTON
 function updateNumber(number){
+	console.log(num);
 
 	if(num === 0) num = number; //IF THE CURRENT NUMBER IS 0, DON'T SHOW THE ZERO IN FRONT
 	else num += number;
+
+	console.log(num);
 
 	$('.js-readout').text(num);
 }
 
 
 function updateStorage(tempaction){
-	storage = parseInt(num);
+	storage = Number(num);
 	
 	//THIS IS THE CODE FOR THE NEGATIVE CONTROL - IF WE PRESSED THE NEGATIVE BUTTON WE SHOULD MULTIPLY BY -1 AND RESET NEGATIVE TO FALSE
 	if(negative){
 		storage = makeNegative(storage);
 		$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
 	} 
+
+	decimal = false;
 	
 	action = tempaction;
 	$('.js-operation').text(tempaction);
@@ -140,7 +155,7 @@ function makeNegative(number){
 
 function calculate(){
 	var output;
-	var tempNumber = parseInt(num);
+	var tempNumber = Number(num);
 
 	//IF THIS IS A NEGATIVE NUMBER HANDLE THAT
 	if(negative) tempNumber = makeNegative(tempNumber);
@@ -155,7 +170,8 @@ function calculate(){
 	else if(action == "^") output = Math.pow(storage, tempNumber);
 
 
-	storage = num = parseInt(output);
+	storage = num = Number(output);
+	decimal = false;
 
 	$('.js-storage').text(storage);
 
