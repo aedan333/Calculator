@@ -47,28 +47,28 @@ $(function(){
 
 	//THIS IS THE CODE FOR OPERATIONS BUTTONS (PLUS, MINUS, ...)
 		$('.js-multiply').click(function(){
-			updateStorage('multiply');
+			updateStorage('*');
 			$('.js-readout').text('0');
 		});
 
 		$('.js-add').click(function(){
-			updateStorage('add');
+			updateStorage('+');
 			$('.js-readout').text('0');
 		});
 
 		$('.js-subtract').click(function(){
-			updateStorage('subtract');
+			updateStorage('-');
 			$('.js-readout').text('0');
 		});
 
 		$('.js-divide').click(function(){
-			updateStorage('divide');
+			updateStorage('/');
 			$('.js-readout').text('0');
 		});
 
 		//EXPONENT BUTTON CODE IS HERE!
 		$('.js-exponent').click(function(){
-			updateStorage('exponent');
+			updateStorage('^');
 			$('.js-readout').text('0');
 		});
 
@@ -78,46 +78,31 @@ $(function(){
 			$('.js--negative-marker').toggleClass('s-visible');
 		});
 
+		//DECIMAL BUTTON IS HERE	
+		$('.js-decimal').click(function(){
+			if(decimal) return false;
+			num += '.'
+			$('.js-readout').text(num);
+			decimal = true;
+		});
+
 
 	//THIS IS THE CODE TO DO THE CALCULATIONS
 		$('.js-calculate').click(function(){
-			var output;
-			var tempNumber = parseInt(num);
-
-			//IF THIS IS A NEGATIVE NUMBER HANDLE THAT
-			if(negative) tempNumber = makeNegative(tempNumber);
-			$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
-
-			if(action == "add") output = storage + tempNumber;
-			else if(action == "subtract") output = storage - tempNumber;
-			else if(action == "multiply") output = storage * tempNumber;
-			else if(action == "divide") output = storage / tempNumber;
-
-			//AND THIS IS THE CODE THAT CONTROLS DOING THE EXPONENT MATH
-			else if(action == "exponent") output = Math.pow(storage, tempNumber);
-
-
-			storage = num = parseInt(output);
-
-			$('.js-storage').text(storage);
-
-			$('.js-readout').text(output);
-
-			$('.js-readout').addClass('s-success');
-
-			setTimeout( function(){
-				$('.js-readout').removeClass('s-success');
-			},1000);
-		
+			calculate();
 		});
+
+		
 
 	//THIS IS THE CLEAR BUTTON
 	$(".js-clear").click(function(){
 		num = 0; 
 		storage = 0;
 		negative = false;	//restore negative to false
+		decimal = false;
 		$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
 		$('.js-storage').text("");
+		$('.js-operation').text("");
 		$('.js-readout').text("0");
 	})
 
@@ -128,28 +113,35 @@ var num = 0;
 var action = '';
 var storage = 0;
 var negative = false;
+var decimal = false;
 
 
 //THIS IS THE FUNCTION THAT RUNS WHEN YOU CLICK A NUMBER BUTTON
 function updateNumber(number){
+	console.log(num);
 
 	if(num === 0) num = number; //IF THE CURRENT NUMBER IS 0, DON'T SHOW THE ZERO IN FRONT
 	else num += number;
+
+	console.log(num);
 
 	$('.js-readout').text(num);
 }
 
 
 function updateStorage(tempaction){
-	storage = parseInt(num);
+	storage = Number(num);
 	
 	//THIS IS THE CODE FOR THE NEGATIVE CONTROL - IF WE PRESSED THE NEGATIVE BUTTON WE SHOULD MULTIPLY BY -1 AND RESET NEGATIVE TO FALSE
 	if(negative){
 		storage = makeNegative(storage);
 		$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
 	} 
+
+	decimal = false;
 	
 	action = tempaction;
+	$('.js-operation').text(tempaction);
 	$('.js-storage').text(storage + tempaction);
 	num = 0;
 }
@@ -160,3 +152,75 @@ function makeNegative(number){
 	
 	return number * -1;
 }
+
+function calculate(){
+	var output;
+	var tempNumber = Number(num);
+
+	//IF THIS IS A NEGATIVE NUMBER HANDLE THAT
+	if(negative) tempNumber = makeNegative(tempNumber);
+	$('.js--negative-marker').removeClass('s-visible');//Hide the negative sign
+
+	if(action == "+") output = storage + tempNumber;
+	else if(action == "-") output = storage - tempNumber;
+	else if(action == "*") output = storage * tempNumber;
+	else if(action == "/") output = storage / tempNumber;
+
+	//AND THIS IS THE CODE THAT CONTROLS DOING THE EXPONENT MATH
+	else if(action == "^") output = Math.pow(storage, tempNumber);
+
+
+	storage = num = Number(output);
+	decimal = false;
+
+	$('.js-storage').text(storage);
+
+	$('.js-operation').text("");
+
+	$('.js-readout').text(output);
+
+	$('.js-readout').addClass('s-success');
+
+	setTimeout( function(){
+		$('.js-readout').removeClass('s-success');
+	},1000);
+
+};
+
+
+//SNEAKY - YOU CAN USE YOUR KEYBOARD IF YOU WANT TO :)
+
+window.addEventListener('keypress', function(event){
+
+	if(event.keyCode > 47 && event.keyCode < 58){		
+		updateNumber(String.fromCharCode(event.charCode));
+		return;
+	}
+
+	switch(event.keyCode){
+		case 43:
+			updateStorage('+');
+			$('.js-readout').text('0');
+			break;
+		case 45:
+			updateStorage('-');
+			$('.js-readout').text('0');
+			break;
+		case 42:
+			updateStorage('*');
+			$('.js-readout').text('0');
+			break;
+		case 47:
+			updateStorage('/');
+			$('.js-readout').text('0');
+			break;
+		case 61:
+		case 13:
+			calculate();
+			break;
+	}
+
+
+});
+
+
