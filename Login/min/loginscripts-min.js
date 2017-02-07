@@ -1,0 +1,1 @@
+$(function(){var a="aedan",s="topsecret";$(".js--login").click(function(){$(".js--username").val()===a&&$(".js--password").val()===s?window.location.href="https://aedan333.github.io/Calculator/":$(".js--login-error").addClass("s-visible")})});
