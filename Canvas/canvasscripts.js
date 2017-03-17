@@ -3,6 +3,8 @@ var ctx;
 var timer;
 var posX = 0;
 var posY = 0;
+var posX2 = 20;
+var posY2 =20
 
 function init(){
 	
