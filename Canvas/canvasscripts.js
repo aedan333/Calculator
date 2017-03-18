@@ -47,6 +47,6 @@ function draw(){
 
 function draw(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = "rgb(255,255,255)";
+	ctx.fillStyle = "rgb(0,255,255)";
     ctx.fillRect (posX2, posY2, 120, 120);
 }
